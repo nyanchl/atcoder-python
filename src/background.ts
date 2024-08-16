@@ -9,8 +9,7 @@ function addInNotion(title: string | undefined, url: string | undefined, comment
         "parent": {"database_id": import.meta.env.VITE_NOTION_DATABASE_ID},
         "properties": {
             "title": { "title": [{ "text": { "content": title } }] },
-            "URL": { "url": url },
-            "comment": { "rich_text": [{ "text": { "content": comment } }] }
+            "select": { "name": "分からん" }
         },
         "children": [
             {
@@ -18,7 +17,6 @@ function addInNotion(title: string | undefined, url: string | undefined, comment
                 "type": "bookmark",
                 "bookmark": {
                     "url": url,
-                    "caption": []
                 }
             }
         ]
