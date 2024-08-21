@@ -9,7 +9,7 @@ function addInNotion(title: string | undefined, url: string | undefined, comment
         "parent": {"database_id": import.meta.env.VITE_NOTION_DATABASE_ID},
         "properties": {
             "title": { "title": [{ "text": { "content": title } }] },
-            "select": { "name": "分からん" }
+            "Status": { "status": {"name": "分からん" }}
         },
         "children": [
             {
@@ -21,7 +21,6 @@ function addInNotion(title: string | undefined, url: string | undefined, comment
             }
         ]
     });
-    console.log(body)
 
     fetch("https://api.notion.com/v1/pages", {
         method: "POST",
