@@ -1,4 +1,4 @@
-function addInNotion(title: string | undefined, url: string | undefined, comment: string | undefined) {
+function addInNotion(title: string | undefined, url: string | undefined) {
     const token = import.meta.env.VITE_NOTION_TOKEN
     const headers = {
         "Authorization": `Bearer ${token}`,
@@ -9,17 +9,9 @@ function addInNotion(title: string | undefined, url: string | undefined, comment
         "parent": {"database_id": import.meta.env.VITE_NOTION_DATABASE_ID},
         "properties": {
             "title": { "title": [{ "text": { "content": title } }] },
+            "URL": { "url": url },
             "Status": { "status": {"name": "分からん" }}
         },
-        "children": [
-            {
-                "object": "block",
-                "type": "bookmark",
-                "bookmark": {
-                    "url": url,
-                }
-            }
-        ]
     });
 
     fetch("https://api.notion.com/v1/pages", {
@@ -37,7 +29,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             const tab = tabs[0];
             if (tab) {
                 sendResponse({ url: tab.url });
-                addInNotion(tab.title, tab.url, message.comment);
+                addInNotion(tab.title, tab.url);
             } else {
                 sendResponse({ url: null });
             }
