@@ -1,4 +1,7 @@
-function addInNotion(title: string | undefined, url: string | undefined) {
+function addInNotion(title: string | undefined, url: string | undefined, proparties: string) {
+    if (proparties === "") {
+        proparties = "分からん"
+    }
     const token = import.meta.env.VITE_NOTION_TOKEN
     const headers = {
         "Authorization": `Bearer ${token}`,
@@ -10,7 +13,7 @@ function addInNotion(title: string | undefined, url: string | undefined) {
         "properties": {
             "title": { "title": [{ "text": { "content": title } }] },
             "URL": { "url": url },
-            "Status": { "status": {"name": "分からん" }}
+            "Status": { "status": {"name": proparties }}
         },
     });
 
@@ -29,7 +32,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             const tab = tabs[0];
             if (tab) {
                 sendResponse({ url: tab.url });
-                addInNotion(tab.title, tab.url);
+                addInNotion(tab.title, tab.url, message.proparties);
             } else {
                 sendResponse({ url: null });
             }
