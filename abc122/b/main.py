@@ -1,14 +1,15 @@
 S = input()
-strings = ['A', 'C', 'G', 'T']
-count = 0
-ans = []
-flag = True
-while flag:
-    for i in S:
-        if i in strings:
-            count += 1
-        else:
-            ans.append(count)
-            count = 0
-    flag = False
-print(max(ans))
+strings = list("ACGT")
+N = len(S)
+ans = 0
+for i in range(N):
+    for j in range(i,N):
+        print(j)
+        if not S[j] in strings:
+            ans = max(ans, j-i)
+            print("hoge",ans)
+            break
+    else:
+        ans = max(ans, N-i)
+        print("huga",ans)
+print(ans)
